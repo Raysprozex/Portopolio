@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio - TB Ray Saputra</title>
+  <style>
+    /* Reset & Variabel Warna */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #1A365D;
+      --secondary: #00B4D8;
+      --bg-light: #F8FAFC;
+      --text-color: #2D3748;
+      --accent: #0284C7;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Container Umum */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Hero Section Header */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 50px 20px 30px;
+      position: relative;
+    }
+
+    .hero p.subtitle {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #64748B;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 5px 0;
+    }
+
+    .hero h2 {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    /* Diamond Frame dengan Animasi Float */
+    .diamond-wrapper {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      margin: 30px auto;
+      animation: floatAnimation 4s ease-in-out infinite;
+    }
+
+    .diamond-frame {
+      width: 100%;
+      height: 100%;
+      transform: rotate(45deg);
+      overflow: hidden;
+      border: 5px solid var(--primary);
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(26, 54, 93, 0.2);
+      transition: all 0.5s ease;
+      background-color: #e2e8f0;
+    }
+
+    .diamond-frame img {
+      width: 140%;
+      height: 140%;
+      object-fit: cover;
+      transform: rotate(-45deg) scale(1.2) translate(-15%, -15%);
+      transition: transform 0.5s ease;
+    }
+
+    .diamond-wrapper:hover .diamond-frame {
+      transform: rotate(45deg) scale(1.05);
+      border-color: var(--secondary);
+      box-shadow: 0 20px 40px rgba(0, 180, 216, 0.3);
+    }
+
+    .diamond-wrapper:hover .diamond-frame img {
+      transform: rotate(-45deg) scale(1.3) translate(-12%, -12%);
+    }
+
+    .deco-shape {
+      position: absolute;
+      bottom: -12px;
+      right: -12px;
+      width: 85px;
+      height: 85px;
+      border: 4px solid var(--secondary);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 8s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes floatAnimation {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Section Utama & Card */
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 25px;
+      border-left: 5px solid var(--secondary);
+      padding-left: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .about, .skills, .experience, .web-projects-section {
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 16px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      border: 1px solid #edf2f7;
+    }
+
+    /* Timeline Pengalaman Kerja */
+    .timeline {
+      position: relative;
+      border-left: 3px solid var(--secondary);
+      padding-left: 25px;
+      margin-left: 10px;
+    }
+
+    .exp-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: -33px;
+      top: 4px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      border: 3px solid var(--secondary);
+      transition: all 0.3s ease;
+    }
+
+    .exp-item:hover::before {
+      background-color: var(--secondary);
+      transform: scale(1.3);
+    }
+
+    .exp-title {
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .exp-company {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.98rem;
+    }
+
+    .exp-date {
+      display: inline-block;
+      font-size: 0.85rem;
+      background-color: #E2E8F0;
+      color: #475569;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin: 6px 0 12px;
+      font-weight: 500;
+    }
+
+    .exp-desc {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .exp-desc li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 6px;
+      color: #4A5568;
+      font-size: 0.95rem;
+    }
+
+    .exp-desc li::before {
+      content: "•";
+      color: var(--secondary);
+      font-weight: bold;
+      font-size: 1.2rem;
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+
+    /* Grid Keahlian / Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .skill-card {
+      background: var(--bg-light);
+      padding: 22px;
+      border-radius: 12px;
+      border-top: 4px solid var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border-top-color: var(--secondary);
+    }
+
+    .skill-card h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    /* Grid Web Projects Modern */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .project-card-item {
+      background: #ffffff;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px rgba(0, 180, 216, 0.15);
+    }
+
+    /* Container Media Gambar & Video */
+    .project-media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-media img,
+    .project-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Content Area */
+    .project-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+    }
+
+    .project-badge {
+      background-color: var(--accent);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-description {
+      color: #4A5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 50px;
+    }
+
+    footer h3 {
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Hero Section -->
+  <header class="hero container">
+    <p class="subtitle">Professional Portfolio</p>
+    <h1>TB Ray Saputra</h1>
+    <h2>Web Development & Field Specialist</h2>
+
+    <!-- Foto Utama dengan Elemen Belah Ketupat Bergerak -->
+    <div class="diamond-wrapper">
+      <div class="diamond-frame">
+        <img src="profilray.png" alt="TB Ray Saputra">
+      </div>
+      <div class="deco-shape"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- About Section -->
+    <section class="about">
+      <h3 class="section-title">Introduction</h3>
+      <p>
+        <strong>WELCOME TO MY PORTFOLIO</strong><br>
+        Saya adalah seorang desainer dan web developer yang berdedikasi untuk menciptakan solusi digital fungsional dan berdampak. Berbekal latar belakang yang beragam—mulai dari pelayanan kuliner profesional hingga manajemen penanganan nasabah di industri keuangan (field collection)—saya memiliki perspektif yang kuat dalam menghadapi tantangan operasional. Pengalaman lapangan ini menjadi fondasi utama saya dalam merancang aplikasi web dan sistem otomasi yang tepat sasaran, mempercepat waktu penyelesaian kerja, serta meningkatkan efisiensi tim.
+      </p>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section class="experience">
+      <h3 class="section-title">Work Experience</h3>
+      
+      <div class="timeline">
+        
+        <!-- Pengalaman 1: PT Adira Finance -->
+        <div class="exp-item">
+          <div class="exp-title">Field Collection</div>
+          <div class="exp-company">PT Adira Dinamika Multi Finance Tbk</div>
+          <div class="exp-date">Juni 2024 – Sekarang</div>
+          <ul class="exp-desc">
+            <li>Melakukan komunikasi, negosiasi, dan penagihan langsung di lapangan kepada nasabah terkait komitmen pembayaran serta penanganan kasus angsuran.</li>
+            <li>Mengidentifikasi dan menganalisis karakter nasabah serta memberikan rekomendasi solusi prediksi kelayakan pembayaran secara real-time.</li>
+            <li>Memanfaatkan dan menginput data harian ke dalam sistem pencatatan digital lapangan (seperti Ruang Docking) untuk menjaga akurasi pelaporan kerja dan pembaruan data nasabah.</li>
+          </ul>
+        </div>
+
+        <!-- Pengalaman 2: Resto Mugunghwa Bintaro -->
+        <div class="exp-item">
+          <div class="exp-title">Koki / Line Cook</div>
+          <div class="exp-company">Resto Mugunghwa Bintaro</div>
+          <div class="exp-date">September 2023 – Mei 2024</div>
+          <ul class="exp-desc">
+            <li>Bertanggung jawab dalam menyiapkan, memasak, dan menyajikan berbagai menu hidangan khas Korea sesuai dengan standar resep dan kualitas restoran.</li>
+            <li>Menjaga kebersihan area dapur (kitchen hygiene), pengelolaan stok bahan baku (inventory control), serta ketepatan waktu penyajian hidangan pada saat jam sibuk.</li>
+            <li>Bekerja sama secara efektif dalam tim dapur untuk memastikan kelancaran alur operasional harian restoran.</li>
+          </ul>
+        </div>
+
+        <!-- Pengalaman 3: Resto Bakso Rusuk Samanhudi -->
+        <div class="exp-item">
+          <div class="exp-title">Koki / Cook</div>
+          <div class="exp-company">Resto Bakso Rusuk Samanhudi</div>
+          <div class="exp-date">Maret 2022 – Februari 2023</div>
+          <ul class="exp-desc">
+            <li>Memproses dan meracik bahan baku utama serta menyajikan hidangan bakso dan rusuk sesuai dengan porsi dan citra rasa standar kuliner.</li>
+            <li>Memastikan efisiensi penggunaan bahan masakan guna meminimalkan sisa pembuangan (food waste) dan menjaga area kerja tetap higienis.</li>
+            <li>Mengelola pesanan dalam jumlah besar secara cepat dan tepat demi menjaga kepuasan serta kenyamanan pelanggan.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills">
+      <h3 class="section-title">Skills & Expertise</h3>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h4>1. Web Development</h4>
+          <p>Pengembangan platform & website fungsional menggunakan HTML, CSS, JavaScript, dan Python.</p>
+        </div>
+        <div class="skill-card">
+          <h4>2. Data Processing & Excel</h4>
+          <p>Pemrosesan data, manajemen laporan, dan otomasi alur kerja untuk efisiensi operasional.</p>
+        </div>
+        <div class="skill-card">
+          <h4>3. Digital & Apparel Design</h4>
+          <p>Pembuatan identitas visual modern, desain jersey/pakaian khusus, dan materi promosi digital.</p>
+        </div>
+        <div class="skill-card">
+          <h4>4. Field & Operational Skills</h4>
+          <p>Analisis kasus nasabah, negosiasi lapangan, manajemen waktu, serta kepemimpinan tim operasional.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="web-projects-section">
+      <h3 class="section-title">Web Projects</h3>
+
+      <div class="projects-grid">
+
+        <!-- Project 1: RO Mobile -->
+        <article class="project-card-item">
+          <div class="project-media">
+            <img src="romobile.png" alt="RO Mobile - Operational Digitalization">
+          </div>
+          <div class="project-content">
+            <span class="project-badge">RO MOBILE</span>
+            <p class="project-description">
+              <strong>Operational Digitalization:</strong> Transformed manual workflows into a centralized digital logging system, enhancing data accuracy for daily water treatment and chemical metrics.
+            </p>
+          </div>
+        </article>
+
+        <!-- Project 2: Ruang Docking (dengan Gambar & Video) -->
+        <article class="project-card-item">
+          <div class="project-media">
+            <video controls poster="ruangdoking.png" preload="metadata">
+              <source src="ruangdoking.mp4" type="video/mp4">
+              Browser Anda tidak mendukung tag video.
+            </video>
+          </div>
+          <div class="project-content">
+            <span class="project-badge">RUANG DOCKING</span>
+            <p class="project-description">
+              The Centralized Docking Room System is a real-time web-based platform designed to digitalize, integrate, and accelerate the tracking of payment commitments and customer case analysis for field teams.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <h3>Thank you for visiting!</h3>
+    <p style="margin: 8px 0;"><strong>TB Ray Saputra</strong></p>
+    <p>Email: <a href="mailto:raysaputra380@gmail.com">raysaputra380@gmail.com</a> | Telp: +62-838-4579-5768</p>
+  </footer>
+
+</body>
+</html>
