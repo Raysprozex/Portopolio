@@ -28,6 +28,20 @@
       overflow-x: hidden;
     }
 
+    /* Tambahan style untuk container animasi background */
+    #matrix-canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1; /* Berada di belakang konten */
+      pointer-events: none; /* Tidak menghalangi interaksi user */
+    }
+    #matrix-canvas-container canvas {
+      display: block; /* Menghilangkan margin default di bawah canvas */
+    }
+
     /* Container Umum */
     .container {
       max-width: 1100px;
@@ -390,6 +404,9 @@
 </head>
 <body>
 
+  <!-- Container untuk animasi background -->
+  <div id="matrix-canvas-container"></div>
+
   <!-- Header / Hero Section -->
   <header class="hero container">
     <p class="subtitle">Professional Portfolio</p>
@@ -528,6 +545,84 @@
     <p style="margin: 8px 0;"><strong>TB Ray Saputra</strong></p>
     <p>Email: <a href="mailto:raysaputra380@gmail.com">raysaputra380@gmail.com</a> | Telp: +62-838-4579-5768</p>
   </footer>
+
+  <!-- Script untuk animasi Matrix-style -->
+  <script>
+    // Ambil container dan buat canvas
+    const container = document.getElementById('matrix-canvas-container');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    container.appendChild(canvas);
+
+    let matrixInterval; // Variabel untuk menyimpan interval animasi
+
+    // Fungsi inisialisasi dan resize animasi
+    function initMatrix() {
+      // Atur ukuran canvas sesuai ukuran layar
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Karakter yang akan digunakan (style coding/matrix)
+      // Gunakan katakana, alphabet, dan angka
+      const characters = 'アァカサタナハマヤラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>{}[]().,';
+      // Mengubah string karakter menjadi array untuk akses acak yang lebih mudah
+      const charArr = characters.split('');
+
+      // Ukuran font dan hitung jumlah kolom
+      const fontSize = 18;
+      const columns = Math.floor(canvas.width / fontSize);
+
+      // Array untuk melacak posisi vertikal (y) setiap 'tetesan' karakter per kolom
+      const drops = [];
+      for (let i = 0; i < columns; i++) {
+        // Mulai semua drops di luar layar atas secara acak agar tidak semua muncul bersamaan
+        drops[i] = -1 * Math.floor(Math.random() * canvas.height / fontSize);
+      }
+
+      // Fungsi utama untuk menggambar animasi
+      function drawMatrix() {
+        // Terapkan efek fading: gambar persegi transparan di atas konten sebelumnya
+        // Gunakan warna background utama (--bg-light) dengan transparansi rendah
+        ctx.fillStyle = 'rgba(248, 250, 252, 0.95)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Gaya teks: Gunakan warna sekunder (--secondary) dan monospace font
+        ctx.fillStyle = '#00B4D8';
+        ctx.font = fontSize + 'px monospace';
+
+        // Iterasi melalui setiap kolom
+        for (let i = 0; i < drops.length; i++) {
+          // Ambil karakter acak dari array
+          const text = charArr[Math.floor(Math.random() * charArr.length)];
+
+          // Gambar karakter di posisi x (kolom * fontSize) dan y (drops[i] * fontSize)
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          // Tingkatkan posisi y untuk tetesan berikutnya
+          drops[i]++;
+
+          // Cek apakah tetesan telah melewati batas bawah layar
+          // Jika ya, reset ke atas layar dengan kemungkinan acak agar staggered
+          if (drops[i] * fontSize > canvas.height) {
+            // Memberikan chance kecil (sekitar 2.5%) untuk reset agar tidak semua bareng
+            if(Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+          }
+        }
+      }
+
+      // Mulai ulang animasi dengan kecepatan tertentu (milliseconds per frame)
+      if (matrixInterval) clearInterval(matrixInterval);
+      matrixInterval = setInterval(drawMatrix, 40); // 40ms per frame -> ~25 fps
+    }
+
+    // Panggil inisialisasi pertama kali
+    initMatrix();
+
+    // Tambahkan listener untuk menyesuaikan animasi saat ukuran window berubah
+    window.addEventListener('resize', initMatrix);
+  </script>
 
 </body>
 </html>
